@@ -45,7 +45,7 @@ export class User {
     default: UserRole.CLIENT,
   })
   @IsEnum(UserRole)
-  role: UserRole;
+  role: UserRole = UserRole.CLIENT;
 
   @Column({ type: 'boolean', default: true })
   isActive: boolean;

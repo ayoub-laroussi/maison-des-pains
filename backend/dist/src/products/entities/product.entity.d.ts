@@ -4,7 +4,7 @@ export declare class Product {
     description: string;
     price: number;
     imageUrl: string;
-    isActive: boolean;
+    isAvailable: boolean;
     createdAt: Date;
     updatedAt: Date;
 }

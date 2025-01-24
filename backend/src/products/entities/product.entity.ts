@@ -1,38 +1,36 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl, Min } from 'class-validator';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { IsNotEmpty, IsString, IsNumber, Min, IsUrl, IsBoolean } from 'class-validator';
 
 @Entity('products')
 export class Product {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  @IsNotEmpty()
+  @Column({ type: 'varchar' })
   @IsString()
+  @IsNotEmpty()
   name: string;
 
-  @Column({ type: 'text', nullable: true })
-  @IsOptional()
+  @Column({ type: 'text' })
   @IsString()
   description: string;
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
-  @IsNotEmpty()
   @IsNumber()
   @Min(0)
   price: number;
 
-  @Column({ nullable: true })
-  @IsOptional()
+  @Column({ type: 'varchar', nullable: true })
   @IsUrl()
   imageUrl: string;
 
-  @Column({ default: true })
-  isActive: boolean;
+  @Column({ type: 'boolean', default: true })
+  @IsBoolean()
+  isAvailable: boolean;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 } 

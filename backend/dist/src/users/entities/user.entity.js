@@ -20,6 +20,9 @@ var UserRole;
     UserRole["ADMIN"] = "ADMIN";
 })(UserRole || (exports.UserRole = UserRole = {}));
 let User = class User {
+    constructor() {
+        this.role = UserRole.CLIENT;
+    }
 };
 exports.User = User;
 __decorate([
