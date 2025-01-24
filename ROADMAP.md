@@ -37,24 +37,24 @@
 
 ---
 
-## Phase 2 – Catalogue de produits & Front-end client 🔵
+## Phase 2 – Catalogue de produits & Front-end client 🟡
 
-1. **Modèle `Product`** 🔵
-   - [ ] Propriétés : `id`, `name`, `description`, `price`, `imageURL`, etc.  
-   - [ ] Migrations & validations (prix > 0, nom obligatoire, etc.)  
-   - [ ] Créer un **service** / **repository** pour le CRUD des produits  
+1. **Modèle `Product`** 🟢
+   - [x] Propriétés : `id`, `name`, `description`, `price`, `imageURL`, etc.  
+   - [x] Migrations & validations (prix > 0, nom obligatoire, etc.)  
+   - [x] Créer un **service** / **repository** pour le CRUD des produits  
 
-2. **Endpoints pour la liste des produits**  
-   - [ ] `GET /products` : renvoie la liste de tous les produits  
-   - [ ] `GET /products/:id` : détails d'un produit  
-   - [ ] (Pour l'admin/boulanger) `POST /products`, `PATCH /products/:id`, `DELETE /products/:id`  
+2. **Endpoints pour la liste des produits** 🟢
+   - [x] `GET /products` : renvoie la liste de tous les produits  
+   - [x] `GET /products/:id` : détails d'un produit  
+   - [x] (Pour l'admin/boulanger) `POST /products`, `PATCH /products/:id`, `DELETE /products/:id`  
 
-3. **Front-end (ou API) pour l'affichage**  
+3. **Front-end (ou API) pour l'affichage** ⚪️
    - [ ] Page vitrine principale : liste des produits, pagination éventuelle  
    - [ ] Page détail d'un produit : description, prix, photo  
    - [ ] Tests E2E pour vérifier l'affichage et la récupération des produits  
 
-4. **Gestion des images** (optionnel ou plus tard)  
+4. **Gestion des images** (optionnel ou plus tard) ⚪️
    - [ ] Endpoint d'upload d'image de produit  
    - [ ] Stockage local ou sur un service externe (S3, etc.)  
 
