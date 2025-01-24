@@ -13,28 +13,28 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ unique: true })
+  @Column({ type: 'varchar', unique: true })
   @IsEmail()
   @IsNotEmpty()
   email: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   @IsNotEmpty()
   @MinLength(8)
   @Exclude()
   password: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   @IsString()
   @IsNotEmpty()
   firstName: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   @IsString()
   @IsNotEmpty()
   lastName: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   @IsOptional()
   @IsPhoneNumber('FR')
   phoneNumber: string;
@@ -47,12 +47,12 @@ export class User {
   @IsEnum(UserRole)
   role: UserRole;
 
-  @Column({ default: true })
+  @Column({ type: 'boolean', default: true })
   isActive: boolean;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 } 
