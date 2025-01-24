@@ -53,11 +53,14 @@ export class AuthService {
     };
   }
 
-  async validateUser(id: string): Promise<User> {
-    const user = await this.userRepository.findOne({ where: { id } });
-    if (!user) {
-      throw new UnauthorizedException('Utilisateur non trouvé');
-    }
-    return user;
+  async validateUser(userId: string): Promise<User | null> {
+    return this.userRepository.findOne({ where: { id: userId } });
+  }
+
+  async generateToken(user: User) {
+    const payload = { sub: user.id, email: user.email, role: user.role };
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
   }
 } 
