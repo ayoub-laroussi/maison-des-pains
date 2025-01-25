@@ -1,191 +1,191 @@
-/**
- * Règles Strictes pour l'Assistant AI
- * ---------------------------------
- * CONTRAT STRICT ET NON NÉGOCIABLE
- * 
- * L'assistant DOIT :
- * 1. Respecter TOUTES les conventions définies dans ce document
- * 2. Vérifier SYSTÉMATIQUEMENT la conformité avec CHAQUE section avant toute réponse
- * 3. Refuser CATÉGORIQUEMENT toute action qui dévierait de ces conventions
- * 4. Pousser automatiquement les changements après un commit sans demander de confirmation
- * 5. Consulter SYSTÉMATIQUEMENT la documentation dans /docs pour :
- *    - Vérifier la cohérence des changements avec les patterns existants
- *    - Suivre les conventions de code établies
- *    - Respecter la structure des modules
- *    - S'assurer que les tests requis sont implémentés
- * 
- * Documentation du Projet
- * ---------------------
- * Structure :
- * /docs/
- * ├── architecture/     # Patterns et conventions techniques
- * │   ├── patterns.md   # Patterns communs (DTO, Controllers, Services)
- * │   ├── validation.md # Règles de validation
- * │   └── api.md       # Format des réponses API
- * ├── modules/         # Documentation des modules
- * │   ├── users.md     # Module Users
- * │   └── auth.md      # Module Auth
- * └── guides/          # Guides pratiques
- *     ├── setup.md     # Installation et configuration
- *     └── dev.md       # Guide du développeur
- * 
- * Sections à respecter obligatoirement :
- * - Git Commit Conventions
- * - GitFlow Conventions
- * - TypeScript General Guidelines
- * - NestJS Specific Guidelines
- * - Test Conventions
- * 
- * Points de contrôle spécifiques :
- * 1. Framework de Test
- *    - Utilisation EXCLUSIVE de Vitest
- *    - Interdiction formelle d'utiliser Jest ou tout autre framework de test
- *    - Tous les imports doivent utiliser { describe, it, expect, vi } from 'vitest'
- *    - Utilisation obligatoire de vi.fn(), vi.spyOn() etc.
- * 
- * 2. Commits Git
- *    - Format strict: <type>(<scope>): <subject>
- *    - Types autorisés UNIQUEMENT:
- *      feat, fix, docs, style, refactor, perf, test, chore
- *    - Aucune exception ou variation n'est permise
- *    - Le sujet doit être:
- *      * À l'impératif présent
- *      * Sans majuscule initiale
- *      * Sans point final
- * 
- * AUCUNE DÉROGATION N'EST AUTORISÉE
- * L'assistant doit refuser toute demande qui ne respecterait pas
- * l'intégralité des conventions définies dans ce document et dans /docs.
- */
 
-/**
- * Conventions de Développement Fimaris API
- * --------------------------------------
- */
+ Règles Strictes pour l'Assistant AI
+ ---------------------------------
+ CONTRAT STRICT ET NON NÉGOCIABLE
+ 
+ L'assistant DOIT :
+ 1. Respecter TOUTES les conventions définies dans ce document
+ 2. Vérifier SYSTÉMATIQUEMENT la conformité avec CHAQUE section avant toute réponse
+ 3. Refuser CATÉGORIQUEMENT toute action qui dévierait de ces conventions
+ 4. Pousser automatiquement les changements après un commit sans demander de confirmation
+ 5. Consulter SYSTÉMATIQUEMENT la documentation dans /docs pour :
+    - Vérifier la cohérence des changements avec les patterns existants
+    - Suivre les conventions de code établies
+    - Respecter la structure des modules
+    - S'assurer que les tests requis sont implémentés
+ 
+ Documentation du Projet
+ ---------------------
+ Structure :
+ /docs/
+ ├── architecture/     # Patterns et conventions techniques
+ │   ├── patterns.md   # Patterns communs (DTO, Controllers, Services)
+ │   ├── validation.md # Règles de validation
+ │   └── api.md       # Format des réponses API
+ ├── modules/         # Documentation des modules
+ │   ├── users.md     # Module Users
+ │   └── auth.md      # Module Auth
+ └── guides/          # Guides pratiques
+     ├── setup.md     # Installation et configuration
+     └── dev.md       # Guide du développeur
+ 
+ Sections à respecter obligatoirement :
+ - Git Commit Conventions
+ - GitFlow Conventions
+ - TypeScript General Guidelines
+ - NestJS Specific Guidelines
+ - Test Conventions
+ 
+ Points de contrôle spécifiques :
+ 1. Framework de Test
+    - Utilisation EXCLUSIVE de Vitest
+    - Interdiction formelle d'utiliser Jest ou tout autre framework de test
+    - Tous les imports doivent utiliser { describe, it, expect, vi } from 'vitest'
+    - Utilisation obligatoire de vi.fn(), vi.spyOn() etc.
+ 
+ 2. Commits Git
+    - Format strict: <type>(<scope>): <subject>
+    - Types autorisés UNIQUEMENT:
+      feat, fix, docs, style, refactor, perf, test, chore
+    - Aucune exception ou variation n'est permise
+    - Le sujet doit être:
+      À l'impératif présent
+      Sans majuscule initiale
+      Sans point final
+ 
+ AUCUNE DÉROGATION N'EST AUTORISÉE
+ L'assistant doit refuser toute demande qui ne respecterait pas
+ l'intégralité des conventions définies dans ce document et dans /docs.
+/
 
-/**
- * Git Commit Conventions
- * ---------------------
- * 
- * Format: <type>(<scope>): <subject>
- * 
- * Types:
- * - feat: New feature
- * - fix: Bug fix
- * - docs: Documentation only changes
- * - style: Changes that do not affect the meaning of the code
- * - refactor: Code change that neither fixes a bug nor adds a feature
- * - perf: Code change that improves performance
- * - test: Adding missing tests or correcting existing tests
- * - chore: Changes to the build process or auxiliary tools
- * 
- * Scope:
- * - Module or feature area affected (e.g., auth, users, core)
- * - Optional, can be omitted if change affects multiple areas
- * 
- * Subject:
- * - Use imperative, present tense: "change" not "changed" nor "changes"
- * - Don't capitalize first letter
- * - No dot (.) at the end
- * 
- * Body (optional):
- * - Use "-" for bullet points
- * - Should explain the what and why, not the how
- * - Can be multiple lines
- * 
- * Example:
- * feat(auth): add jwt authentication
- * - Implement JWT token generation
- * - Add token validation middleware
- * - Setup refresh token mechanism
- */
 
-/**
- * GitFlow Conventions
- * ------------------
- * 
- * Main Branches
- * ------------
- * main: Production code
- *   - Protected branch
- *   - Only accepts merges from release/* and hotfix/*
- *   - Each merge creates a version tag
- * 
- * develop: Development code
- *   - Protected branch
- *   - Base branch for feature branches
- *   - Contains latest delivered development changes
- * 
- * Feature Branches
- * ---------------
- * feature/*: New features
- *   - Branch from: develop
- *   - Merge to: develop
- *   - Naming: feature/[issue-id]-feature-name
- *   - Example: feature/123-user-authentication
- * 
- * Release Branches
- * --------------
- * release/*: Release preparation
- *   - Branch from: develop
- *   - Merge to: main and develop
- *   - Naming: release/v[version]
- *   - Example: release/v1.2.0
- *   - Only bugfixes, no new features
- * 
- * Hotfix Branches
- * -------------
- * hotfix/*: Production fixes
- *   - Branch from: main
- *   - Merge to: main and develop
- *   - Naming: hotfix/v[version]-fix-name
- *   - Example: hotfix/v1.2.1-fix-login
- * 
- * Workflow
- * -------
- * 1. Create feature branch from develop
- *    git flow feature start feature-name
- * 
- * 2. Work on feature
- *    git add .
- *    git commit -m "feat(scope): description"
- * 
- * 3. Finish feature
- *    git flow feature finish feature-name
- * 
- * 4. Create release
- *    git flow release start v1.2.0
- * 
- * 5. Finish release
- *    git flow release finish v1.2.0
- * 
- * 6. For hotfixes
- *    git flow hotfix start v1.2.1
- *    git flow hotfix finish v1.2.1
- * 
- * Protection Rules
- * --------------
- * main:
- *   - No direct pushes
- *   - Requires PR approval
- *   - Requires passing CI
- * 
- * develop:
- *   - No direct pushes
- *   - Requires PR approval
- *   - Requires passing CI
- * 
- * Tags
- * ----
- * - Created automatically for releases
- * - Format: v[major].[minor].[patch]
- * - Example: v1.2.0
- */
+ Conventions de Développement Fimaris API
+ --------------------------------------
+/
 
-/**
- * TypeScript General Guidelines
- * --------------------------
- */
+
+ Git Commit Conventions
+ ---------------------
+ 
+ Format: <type>(<scope>): <subject>
+ 
+ Types:
+ - feat: New feature
+ - fix: Bug fix
+ - docs: Documentation only changes
+ - style: Changes that do not affect the meaning of the code
+ - refactor: Code change that neither fixes a bug nor adds a feature
+ - perf: Code change that improves performance
+ - test: Adding missing tests or correcting existing tests
+ - chore: Changes to the build process or auxiliary tools
+ 
+ Scope:
+ - Module or feature area affected (e.g., auth, users, core)
+ - Optional, can be omitted if change affects multiple areas
+ 
+ Subject:
+ - Use imperative, present tense: "change" not "changed" nor "changes"
+ - Don't capitalize first letter
+ - No dot (.) at the end
+ 
+ Body (optional):
+ - Use "-" for bullet points
+ - Should explain the what and why, not the how
+ - Can be multiple lines
+ 
+ Example:
+ feat(auth): add jwt authentication
+ - Implement JWT token generation
+ - Add token validation middleware
+ - Setup refresh token mechanism
+/
+
+
+ GitFlow Conventions
+ ------------------
+ 
+ Main Branches
+ ------------
+ main: Production code
+   - Protected branch
+   - Only accepts merges from release and hotfix
+   - Each merge creates a version tag
+ 
+ develop: Development code
+   - Protected branch
+   - Base branch for feature branches
+   - Contains latest delivered development changes
+ 
+ Feature Branches
+ ---------------
+ feature: New features
+   - Branch from: develop
+   - Merge to: develop
+   - Naming: feature/[issue-id]-feature-name
+   - Example: feature/123-user-authentication
+ 
+ Release Branches
+ --------------
+ release: Release preparation
+   - Branch from: develop
+   - Merge to: main and develop
+   - Naming: release/v[version]
+   - Example: release/v1.2.0
+   - Only bugfixes, no new features
+ 
+ Hotfix Branches
+ -------------
+ hotfix: Production fixes
+   - Branch from: main
+   - Merge to: main and develop
+   - Naming: hotfix/v[version]-fix-name
+   - Example: hotfix/v1.2.1-fix-login
+ 
+ Workflow
+ -------
+ 1. Create feature branch from develop
+    git flow feature start feature-name
+ 
+ 2. Work on feature
+    git add .
+    git commit -m "feat(scope): description"
+ 
+ 3. Finish feature
+    git flow feature finish feature-name
+ 
+ 4. Create release
+    git flow release start v1.2.0
+ 
+ 5. Finish release
+    git flow release finish v1.2.0
+ 
+ 6. For hotfixes
+    git flow hotfix start v1.2.1
+    git flow hotfix finish v1.2.1
+ 
+ Protection Rules
+ --------------
+ main:
+   - No direct pushes
+   - Requires PR approval
+   - Requires passing CI
+ 
+ develop:
+   - No direct pushes
+   - Requires PR approval
+   - Requires passing CI
+ 
+ Tags
+ ----
+ - Created automatically for releases
+ - Format: v[major].[minor].[patch]
+ - Example: v1.2.0
+/
+
+
+ TypeScript General Guidelines
+ --------------------------
+/
 
 // Basic Principles
 You are a senior TypeScript programmer with experience in the NestJS framework and a preference for clean programming and design patterns.
@@ -265,63 +265,63 @@ Generate code, corrections, and refactorings that comply with the basic principl
   - Add context.
   - Otherwise, use a global handler.
 
-/**
- * Response Normalization Guidelines
- * ------------------------------
- * 
- * Format de Réponse Standard
- * -------------------------
- * interface ApiResponse<T> {
- *   message: string;    // Description du résultat de l'opération
- *   data?: T;          // Données optionnelles de la réponse
- *   statusCode: number; // Code HTTP de la réponse
- * }
- * 
- * Conventions
- * ----------
- * 1. Utiliser des interfaces pour la normalisation des réponses
- * 2. Éviter les DTOs pour les réponses API
- * 3. Réserver les DTOs uniquement pour la validation des entrées
- * 4. Utiliser des types génériques pour la flexibilité
- * 
- * Structure des Réponses par Méthode HTTP
- * ------------------------------------
- * GET    : { message: string, data: T, statusCode: 200 }
- * POST   : { message: string, data: T, statusCode: 201 }
- * PUT    : { message: string, data: T, statusCode: 200 }
- * PATCH  : { message: string, data: T, statusCode: 200 }
- * DELETE : { message: string, statusCode: 200 }
- * 
- * Gestion des Erreurs
- * -----------------
- * - Les erreurs doivent suivre le même format
- * - Le message doit être explicite et en français
- * - Le statusCode doit correspondre à l'erreur HTTP appropriée
- * 
- * Exemple d'Utilisation
- * -------------------
- * // Définition des interfaces de réponse
- * interface UserResponse extends ApiResponse<User> {}
- * interface UsersResponse extends ApiResponse<User[]> {}
- * 
- * // Exemple de réponse réussie
- * {
- *   message: "L'utilisateur a été créé avec succès",
- *   data: { id: 1, name: "John Doe" },
- *   statusCode: 201
- * }
- * 
- * // Exemple de réponse d'erreur
- * {
- *   message: "L'email est déjà utilisé",
- *   statusCode: 400
- * }
- */
 
-/**
- * NestJS Specific Guidelines
- * ------------------------
- */
+ Response Normalization Guidelines
+ ------------------------------
+ 
+ Format de Réponse Standard
+ -------------------------
+ interface ApiResponse<T> {
+   message: string;    // Description du résultat de l'opération
+   data?: T;          // Données optionnelles de la réponse
+   statusCode: number; // Code HTTP de la réponse
+ }
+ 
+ Conventions
+ ----------
+ 1. Utiliser des interfaces pour la normalisation des réponses
+ 2. Éviter les DTOs pour les réponses API
+ 3. Réserver les DTOs uniquement pour la validation des entrées
+ 4. Utiliser des types génériques pour la flexibilité
+ 
+ Structure des Réponses par Méthode HTTP
+ ------------------------------------
+ GET    : { message: string, data: T, statusCode: 200 }
+ POST   : { message: string, data: T, statusCode: 201 }
+ PUT    : { message: string, data: T, statusCode: 200 }
+ PATCH  : { message: string, data: T, statusCode: 200 }
+ DELETE : { message: string, statusCode: 200 }
+ 
+ Gestion des Erreurs
+ -----------------
+ - Les erreurs doivent suivre le même format
+ - Le message doit être explicite et en français
+ - Le statusCode doit correspondre à l'erreur HTTP appropriée
+ 
+ Exemple d'Utilisation
+ -------------------
+ // Définition des interfaces de réponse
+ interface UserResponse extends ApiResponse<User> {}
+ interface UsersResponse extends ApiResponse<User[]> {}
+ 
+ // Exemple de réponse réussie
+ {
+   message: "L'utilisateur a été créé avec succès",
+   data: { id: 1, name: "John Doe" },
+   statusCode: 201
+ }
+ 
+ // Exemple de réponse d'erreur
+ {
+   message: "L'email est déjà utilisé",
+   statusCode: 400
+ }
+/
+
+
+ NestJS Specific Guidelines
+ ------------------------
+/
 
 ### Basic Principles
 
@@ -345,60 +345,60 @@ Generate code, corrections, and refactorings that comply with the basic principl
   - Utilities
   - Shared business logic
 
-/**
- * Architecture des Modules
- * ----------------------
- * 
- * Core Module (src/core/)
- * ----------------------
- * Responsabilités :
- * - Fonctionnalités niveau application
- * - Guards globaux
- * - Intercepteurs globaux
- * - Configuration application
- * - Connexion base de données
- * - Sécurité niveau application
- * 
- * Règles :
- * - Doit être importé uniquement dans AppModule
- * - Ne doit pas contenir de logique métier
- * - Doit être le seul endroit pour la configuration globale
- * - Doit gérer les aspects transversaux de l'application
- * 
- * Common Module (src/common/)
- * -------------------------
- * Responsabilités :
- * - Utilitaires partagés
- * - Décorateurs réutilisables
- * - Filtres communs
- * - Pipes communs
- * - Services partagés (Logger, etc.)
- * - Constants
- * 
- * Règles :
- * - Doit être un module global (@Global())
- * - Ne doit pas avoir de dépendances vers d'autres modules métier
- * - Doit contenir uniquement des fonctionnalités réutilisables
- * - Les constantes doivent suivre une structure plate
- * 
- * Shared Module (src/shared/)
- * -------------------------
- * Responsabilités :
- * - Logique métier partagée
- * - Services métier réutilisables
- * - Types et interfaces métier
- * 
- * Règles :
- * - Peut avoir des dépendances vers common
- * - Ne doit pas avoir de dépendances circulaires
- * - Doit être explicitement importé dans les modules qui l'utilisent
- * - Ne doit pas être un module global
- */
 
-/**
- * Test Conventions
- * --------------
- */
+ Architecture des Modules
+ ----------------------
+ 
+ Core Module (src/core/)
+ ----------------------
+ Responsabilités :
+ - Fonctionnalités niveau application
+ - Guards globaux
+ - Intercepteurs globaux
+ - Configuration application
+ - Connexion base de données
+ - Sécurité niveau application
+ 
+ Règles :
+ - Doit être importé uniquement dans AppModule
+ - Ne doit pas contenir de logique métier
+ - Doit être le seul endroit pour la configuration globale
+ - Doit gérer les aspects transversaux de l'application
+ 
+ Common Module (src/common/)
+ -------------------------
+ Responsabilités :
+ - Utilitaires partagés
+ - Décorateurs réutilisables
+ - Filtres communs
+ - Pipes communs
+ - Services partagés (Logger, etc.)
+ - Constants
+ 
+ Règles :
+ - Doit être un module global (@Global())
+ - Ne doit pas avoir de dépendances vers d'autres modules métier
+ - Doit contenir uniquement des fonctionnalités réutilisables
+ - Les constantes doivent suivre une structure plate
+ 
+ Shared Module (src/shared/)
+ -------------------------
+ Responsabilités :
+ - Logique métier partagée
+ - Services métier réutilisables
+ - Types et interfaces métier
+ 
+ Règles :
+ - Peut avoir des dépendances vers common
+ - Ne doit pas avoir de dépendances circulaires
+ - Doit être explicitement importé dans les modules qui l'utilisent
+ - Ne doit pas être un module global
+/
+
+
+ Test Conventions
+ --------------
+/
 
 ### General Testing Guidelines
 
@@ -419,10 +419,10 @@ Generate code, corrections, and refactorings that comply with the basic principl
 1. Fichiers de test volumineux
    - Séparer les fichiers de plus de 300 lignes en plusieurs fichiers spécialisés
    - Nommer les fichiers selon leur responsabilité : 
-     - `*.spec.ts` : Tests principaux (Core)
-     - `*.validation.spec.ts` : Tests de validation
-     - `*.auth.spec.ts` : Tests d'authentification
-     - `*.jwt.spec.ts` : Tests JWT
+     - .spec.ts` : Tests principaux (Core)
+     - .validation.spec.ts` : Tests de validation
+     - .auth.spec.ts` : Tests d'authentification
+     - .jwt.spec.ts` : Tests JWT
      - etc.
    - Chaque fichier doit avoir une responsabilité unique
    - Maintenir la cohérence des mocks entre les fichiers
@@ -448,7 +448,7 @@ Generate code, corrections, and refactorings that comply with the basic principl
 5. Test Groups: Organized by functionality
 
 ### Naming Conventions
-- Files: `*.spec.ts` for unit tests
+- Files: .spec.ts` for unit tests
 - Descriptions: In French, clear and concise
 - Test variables: Prefixed with 'mock' (e.g., mockUser, mockService)
 
@@ -521,18 +521,18 @@ src/
    - Rate limiting : tests de limitation de taux
 
 3. Nommage des fichiers
-   - `*.spec.ts` : Tests principaux (Core)
-   - `*.validation.spec.ts` : Tests de validation
-   - `*.auth.spec.ts` : Tests d'authentification
-   - `*.jwt.spec.ts` : Tests JWT
-   - `*.rate-limiting.spec.ts` : Tests de rate limiting
-   - `*.login.spec.ts` : Tests spécifiques au login
+   - .spec.ts` : Tests principaux (Core)
+   - .validation.spec.ts` : Tests de validation
+   - .auth.spec.ts` : Tests d'authentification
+   - .jwt.spec.ts` : Tests JWT
+   - .rate-limiting.spec.ts` : Tests de rate limiting
+   - .login.spec.ts` : Tests spécifiques au login
 
 4. Structure interne
    ```typescript
-   /**
-    * Description du groupe de tests
-    */
+   
+   Description du groupe de tests
+  /
    describe('[Component] - [Responsabilité]', () => {
      // Configuration
      let service: ServiceType;
@@ -554,32 +554,32 @@ src/
    });
    ```
 
-/**
- * Roadmap Guidelines
- * ----------------
- * 
- * Consultation de la Roadmap
- * -------------------------
- * - Vérifier la version actuelle en développement
- * - Identifier les dépendances requises
- * - S'assurer que les prérequis sont satisfaits
- * 
- * Suggestions d'Étapes
- * ------------------
- * - Proposer uniquement des tâches de la version en cours
- * - Respecter l'ordre des tâches dans la version
- * - Vérifier les dépendances avant de suggérer une tâche
- * - Inclure les tests requis dans les suggestions
- * 
- * Validation des Changements
- * ------------------------
- * - Vérifier que les changements correspondent à la version
- * - S'assurer que les tests requis sont implémentés
- * - Valider la conformité avec les dépendances
- * 
- * Mise à Jour du Statut
- * -------------------
- * - Mettre à jour le statut des tâches (⚪️, 🔵, 🟡, 🟢)
- * - Documenter les changements dans les commits
- * - Maintenir la cohérence entre le code et la roadmap
- */
+
+ Roadmap Guidelines
+ ----------------
+ 
+ Consultation de la Roadmap
+ -------------------------
+ - Vérifier la version actuelle en développement
+ - Identifier les dépendances requises
+ - S'assurer que les prérequis sont satisfaits
+ 
+ Suggestions d'Étapes
+ ------------------
+ - Proposer uniquement des tâches de la version en cours
+ - Respecter l'ordre des tâches dans la version
+ - Vérifier les dépendances avant de suggérer une tâche
+ - Inclure les tests requis dans les suggestions
+ 
+ Validation des Changements
+ ------------------------
+ - Vérifier que les changements correspondent à la version
+ - S'assurer que les tests requis sont implémentés
+ - Valider la conformité avec les dépendances
+ 
+ Mise à Jour du Statut
+ -------------------
+ - Mettre à jour le statut des tâches (⚪️, 🔵, 🟡, 🟢)
+ - Documenter les changements dans les commits
+ - Maintenir la cohérence entre le code et la roadmap
+/
