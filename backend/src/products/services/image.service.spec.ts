@@ -11,6 +11,7 @@ vi.mock('fs', () => ({
     mkdir: vi.fn(),
     writeFile: vi.fn(),
     unlink: vi.fn(),
+    stat: vi.fn(),
   },
 }));
 
@@ -69,7 +70,7 @@ describe('ImageService', () => {
 
   describe('deleteImage', () => {
     it('devrait supprimer une image existante', async () => {
-      vi.mocked(fs.access).mockResolvedValueOnce(undefined);
+      vi.mocked(fs.stat).mockResolvedValueOnce({} as any);
       
       await imageService.deleteImage('/products/images/test.jpg');
 
@@ -77,7 +78,7 @@ describe('ImageService', () => {
     });
 
     it('ne devrait pas échouer si l\'image n\'existe pas', async () => {
-      vi.mocked(fs.access).mockRejectedValueOnce(new Error());
+      vi.mocked(fs.stat).mockRejectedValueOnce(new Error());
 
       await expect(imageService.deleteImage('/products/images/test.jpg')).resolves.not.toThrow();
       expect(fs.unlink).not.toHaveBeenCalled();
@@ -86,7 +87,7 @@ describe('ImageService', () => {
     it('ne devrait rien faire si l\'URL est vide', async () => {
       await imageService.deleteImage('');
 
-      expect(fs.access).not.toHaveBeenCalled();
+      expect(fs.stat).not.toHaveBeenCalled();
       expect(fs.unlink).not.toHaveBeenCalled();
     });
   });

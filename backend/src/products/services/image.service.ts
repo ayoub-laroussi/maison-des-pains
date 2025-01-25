@@ -46,7 +46,7 @@ export class ImageService {
   }
 
   async deleteImage(imageUrl: string): Promise<void> {
-    if (!imageUrl) return;
+    if (!imageUrl || !imageUrl.trim()) return;
 
     const fileName = imageUrl.split('/').pop();
     if (!fileName) return;
@@ -54,8 +54,10 @@ export class ImageService {
     const filePath = join(this.uploadDir, fileName);
 
     try {
-      await fs.access(filePath);
-      await fs.unlink(filePath);
+      const exists = await fs.stat(filePath).then(() => true).catch(() => false);
+      if (exists) {
+        await fs.unlink(filePath);
+      }
     } catch {
       // Si le fichier n'existe pas, on ignore silencieusement
     }
