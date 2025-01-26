@@ -1,89 +1,124 @@
 # ROADMAP Maison des Pains
 
-## Phase 1 : Configuration et Structure de Base ⚪️
-- [x] Configuration du projet React/Vite avec TypeScript
-- [x] Mise en place de Tailwind CSS
-- [ ] Configuration du backend NestJS
-- [ ] Mise en place de la base de données PostgreSQL
-- [ ] Configuration Docker pour le développement
+## Backend (API)
 
-## Phase 2 : Authentification et Gestion des Utilisateurs 🔵
-- [ ] Système de connexion/inscription
-- [ ] Gestion des profils utilisateurs
-- [ ] Système de rôles (admin, client)
+### Phase 1 : Configuration API ✅
+- [x] Configuration du backend NestJS
+- [x] Mise en place de la base de données PostgreSQL
+- [x] Configuration des tests unitaires
+- [x] Configuration des tests e2e
+- [ ] Configuration Docker
+
+### Phase 2 : Authentification API ⚪️
+- [x] Module Auth avec JWT
+- [x] Module Users avec rôles
+- [x] Guards et stratégies d'authentification
+- [ ] Tests des endpoints Auth
+- [ ] Tests des endpoints Users
+- [ ] Documentation Swagger
+
+### Phase 3 : Produits API ⚪️
+- [x] Module Products
+- [x] Entité Product et tests
+- [ ] CRUD Produits complet
+- [ ] Catégorisation des produits
+- [ ] Gestion des images
+- [ ] Tests des endpoints Products
+- [ ] Documentation Swagger
+
+### Phase 4 : Magasins API 🔵
+- [ ] Module Stores
+- [ ] Entité Store et tests
+- [ ] CRUD Magasins
+- [ ] Gestion des horaires
+- [ ] Gestion des stocks
+- [ ] Tests des endpoints Stores
+- [ ] Documentation Swagger
+
+### Phase 5 : Commandes API 🔵
+- [ ] Module Orders
+- [ ] Entité Order et tests
+- [ ] CRUD Commandes
+- [ ] Gestion des statuts
+- [ ] Système de paiement
+- [ ] Notifications email
+- [ ] Tests des endpoints Orders
+- [ ] Documentation Swagger
+
+### Phase 6 : Marketing API 🟡
+- [ ] Module Marketing
+- [ ] Gestion Newsletter
+- [ ] Gestion Promotions
+- [ ] Système de fidélité
+- [ ] Tests des endpoints Marketing
+- [ ] Documentation Swagger
+
+## Frontend (React)
+
+### Phase 1 : Configuration Frontend ✅
+- [x] Configuration React/Vite
+- [x] Configuration TypeScript
+- [x] Configuration Tailwind CSS
+- [ ] Configuration des tests
+- [ ] Configuration des routes
+
+### Phase 2 : Authentification Frontend ⚪️
+- [ ] Page de connexion
+- [ ] Page d'inscription
+- [ ] Gestion du profil
 - [ ] Récupération de mot de passe
-- [ ] Gestion des sessions
+- [ ] Tests des composants Auth
+- [ ] Intégration avec l'API Auth
 
-## Phase 3 : Catalogue des Produits 🔵
-- [ ] Création des modèles de données produits
-- [ ] API de gestion des produits
-- [ ] Interface d'administration des produits
-- [ ] Catégorisation des produits :
-  - [ ] Pains
-  - [ ] Viennoiseries
-  - [ ] Pâtisseries
-  - [ ] Snacking
-- [ ] Gestion des images produits
-- [ ] Système de prix et promotions
-
-## Phase 4 : Gestion des Magasins 🔵
-- [ ] Création des modèles de données magasins
-- [ ] Interface de gestion des magasins
-- [ ] Horaires d'ouverture
-- [ ] Géolocalisation
-- [ ] Stock par magasin
-- [ ] Spécificités par magasin
-
-## Phase 5 : Système de Commande 🟡
-- [ ] Panier d'achat
-- [ ] Processus de commande
-- [ ] Sélection du magasin
-- [ ] Choix du créneau horaire
-- [ ] Paiement en ligne
-- [ ] Confirmation par email
-- [ ] Historique des commandes
-
-## Phase 6 : Interface Client 🟡
+### Phase 3 : Interface Client ⚪️
+- [ ] Layout principal
 - [ ] Page d'accueil
   - [ ] Bannière principale
   - [ ] Produits populaires
   - [ ] Actualités
   - [ ] Témoignages
-- [ ] Catalogue des produits
-- [ ] Page des magasins
-- [ ] Système de recherche
-- [ ] Filtres et tri des produits
+- [ ] Tests des composants
+- [ ] Intégration avec l'API
 
-## Phase 7 : Interface Administration 🟡
-- [ ] Dashboard administrateur
-- [ ] Gestion des commandes
-- [ ] Gestion des stocks
-- [ ] Statistiques de vente
-- [ ] Gestion des promotions
-- [ ] Gestion des actualités
+### Phase 4 : Catalogue Produits 🔵
+- [ ] Liste des produits
+- [ ] Filtres et recherche
+- [ ] Détail produit
+- [ ] Panier d'achat
+- [ ] Tests des composants
+- [ ] Intégration avec l'API Products
 
-## Phase 8 : Marketing et Communication 🟢
-- [ ] Newsletter
-- [ ] Blog/Actualités
-- [ ] Système de témoignages
-- [ ] Intégration réseaux sociaux
-- [ ] Système de fidélité
-- [ ] Promotions et offres spéciales
+### Phase 5 : Gestion Magasins 🔵
+- [ ] Liste des magasins
+- [ ] Détail magasin
+- [ ] Carte interactive
+- [ ] Sélection magasin
+- [ ] Tests des composants
+- [ ] Intégration avec l'API Stores
 
-## Phase 9 : Optimisation et Performance 🟢
+### Phase 6 : Système de Commande 🟡
+- [ ] Processus de commande
+- [ ] Sélection créneau
+- [ ] Paiement
+- [ ] Historique commandes
+- [ ] Tests des composants
+- [ ] Intégration avec l'API Orders
+
+### Phase 7 : Interface Administration 🟡
+- [ ] Dashboard admin
+- [ ] Gestion produits
+- [ ] Gestion stocks
+- [ ] Gestion commandes
+- [ ] Statistiques
+- [ ] Tests des composants
+- [ ] Intégration avec les APIs
+
+### Phase 8 : Optimisation 🟢
 - [ ] SEO
-- [ ] Performance mobile
-- [ ] Optimisation des images
-- [ ] Cache
-- [ ] Temps de chargement
-
-## Phase 10 : Fonctionnalités Avancées 🟢
-- [ ] Click & Collect
-- [ ] Commandes récurrentes
-- [ ] Notifications push
-- [ ] Application mobile
-- [ ] API publique
-- [ ] Intégration CRM
+- [ ] Performance
+- [ ] Responsive design
+- [ ] PWA
+- [ ] Tests de performance
 
 Légende :
 - ⚪️ En cours
