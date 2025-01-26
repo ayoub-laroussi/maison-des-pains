@@ -28,8 +28,9 @@ export class ImageController {
   ): Promise<ApiResponse<{ imageUrl: string }>> {
     const imageUrl = await this.imageService.uploadImage(file);
     return {
-      message: 'Image uploadée avec succès',
-      data: { imageUrl },
+      success: true,
+      message: 'Image uploaded successfully',
+      data: { imageUrl: imageUrl },
       statusCode: 201,
     };
   }
@@ -41,7 +42,8 @@ export class ImageController {
   ): Promise<ApiResponse<void>> {
     await this.imageService.deleteImage(`/products/images/${filename}`);
     return {
-      message: 'Image supprimée avec succès',
+      success: true,
+      message: 'Image deleted successfully',
       statusCode: 200,
     };
   }
