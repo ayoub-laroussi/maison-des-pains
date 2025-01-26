@@ -1,17 +1,58 @@
 version: '3.8'
 
 services:
-  postgres:
-    container_name: maison-des-pains-db
-    image: postgres:latest
+  backend-dev:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/maison_des_pains
+      - JWT_SECRET=your_jwt_secret
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - db
+    command: npm run start:dev
+
+  backend-prod:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/maison_des_pains
+      - JWT_SECRET=your_jwt_secret
+    depends_on:
+      - db
+    command: npm run start:prod
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run dev
+
+  db:
+    image: postgres:15-alpine
     ports:
       - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=maison_des_pains
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
 volumes:
   postgres_data: 
