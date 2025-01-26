@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  backend:
+  backend-dev:
     build:
       context: ./backend
       dockerfile: Dockerfile.dev
@@ -9,14 +9,28 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=development
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/maison_des_pains_dev
-      - JWT_SECRET=dev_jwt_secret
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/maison_des_pains
+      - JWT_SECRET=your_jwt_secret
     volumes:
       - ./backend:/usr/src/app
       - /usr/src/app/node_modules
     depends_on:
       - db
     command: npm run start:dev
+
+  backend-prod:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/maison_des_pains
+      - JWT_SECRET=your_jwt_secret
+    depends_on:
+      - db
+    command: npm run start:prod
 
   frontend:
     build:
@@ -27,8 +41,6 @@ services:
     volumes:
       - ./frontend:/usr/src/app
       - /usr/src/app/node_modules
-    environment:
-      - VITE_API_URL=http://localhost:3000
     command: npm run dev
 
   db:
@@ -38,9 +50,9 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=maison_des_pains_dev
+      - POSTGRES_DB=maison_des_pains
     volumes:
-      - postgres_data_dev:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
 
 volumes:
-  postgres_data_dev: 
+  postgres_data: 

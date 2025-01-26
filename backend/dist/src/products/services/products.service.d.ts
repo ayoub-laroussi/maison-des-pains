@@ -6,8 +6,8 @@ export declare class ProductsService {
     private readonly productRepository;
     constructor(productRepository: Repository<Product>);
     findAll(): Promise<Product[]>;
-    findOne(id: string): Promise<Product>;
+    findOne(id: number): Promise<Product>;
     create(createProductDto: CreateProductDto): Promise<Product>;
-    update(id: string, updateProductDto: UpdateProductDto): Promise<import("typeorm").UpdateResult>;
-    remove(id: string): Promise<import("typeorm").DeleteResult>;
+    update(id: number, updateProductDto: UpdateProductDto): Promise<Product>;
+    remove(id: number): Promise<void>;
 }

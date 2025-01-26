@@ -19,10 +19,12 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const bcrypt = require("bcrypt");
 const user_entity_1 = require("../../users/entities/user.entity");
+const users_service_1 = require("../../users/services/users.service");
 let AuthService = class AuthService {
-    constructor(userRepository, jwtService) {
+    constructor(userRepository, jwtService, usersService) {
         this.userRepository = userRepository;
         this.jwtService = jwtService;
+        this.usersService = usersService;
     }
     async register(registerDto) {
         const existingUser = await this.userRepository.findOne({
@@ -39,19 +41,18 @@ let AuthService = class AuthService {
         return this.userRepository.save(user);
     }
     async login(loginDto) {
-        const user = await this.userRepository.findOne({
-            where: { email: loginDto.email },
-        });
+        const user = await this.usersService.findByEmail(loginDto.email);
         if (!user) {
-            throw new common_1.UnauthorizedException('Email ou mot de passe incorrect');
+            throw new common_1.UnauthorizedException('Invalid credentials');
         }
         const isPasswordValid = await bcrypt.compare(loginDto.password, user.password);
         if (!isPasswordValid) {
-            throw new common_1.UnauthorizedException('Email ou mot de passe incorrect');
+            throw new common_1.UnauthorizedException('Invalid credentials');
         }
-        const payload = { sub: user.id, email: user.email, role: user.role };
+        const payload = { sub: user.id, email: user.email };
         return {
-            access_token: this.jwtService.sign(payload),
+            access_token: await this.jwtService.signAsync(payload),
+            refresh_token: await this.jwtService.signAsync(payload, { expiresIn: '7d' }),
         };
     }
     async validateUser(userId) {
@@ -63,12 +64,26 @@ let AuthService = class AuthService {
             access_token: this.jwtService.sign(payload),
         };
     }
+    async refreshToken(token) {
+        try {
+            const payload = await this.jwtService.verifyAsync(token);
+            const user = await this.usersService.findOne(payload.sub);
+            const newPayload = { sub: user.id, email: user.email };
+            return {
+                access_token: await this.jwtService.signAsync(newPayload),
+            };
+        }
+        catch {
+            throw new common_1.UnauthorizedException('Invalid refresh token');
+        }
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
-        jwt_1.JwtService])
+        jwt_1.JwtService,
+        users_service_1.UsersService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

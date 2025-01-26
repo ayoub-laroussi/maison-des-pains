@@ -3,8 +3,8 @@ import { IsNotEmpty, IsString, IsNumber, Min, IsUrl, IsBoolean } from 'class-val
 
 @Entity('products')
 export class Product {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column({ type: 'varchar' })
   @IsString()
@@ -28,9 +28,12 @@ export class Product {
   @IsBoolean()
   isAvailable: boolean;
 
-  @CreateDateColumn({ type: 'timestamp' })
+  @Column({ type: 'simple-array', nullable: true })
+  categories: string[];
+
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
-  @UpdateDateColumn({ type: 'timestamp' })
+  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 } 

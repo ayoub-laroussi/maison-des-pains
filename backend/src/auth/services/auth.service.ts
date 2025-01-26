@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { User } from '../../users/entities/user.entity';
 import { RegisterDto } from '../dtos/register.dto';
 import { LoginDto } from '../dtos/login.dto';
+import { UsersService } from '../../users/services/users.service';
 
 @Injectable()
 export class AuthService {
@@ -13,6 +14,7 @@ export class AuthService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     private readonly jwtService: JwtService,
+    private usersService: UsersService,
   ) {}
 
   async register(registerDto: RegisterDto): Promise<User> {
@@ -33,23 +35,21 @@ export class AuthService {
     return this.userRepository.save(user);
   }
 
-  async login(loginDto: LoginDto): Promise<{ access_token: string }> {
-    const user = await this.userRepository.findOne({
-      where: { email: loginDto.email },
-    });
-
+  async login(loginDto: LoginDto): Promise<{ access_token: string; refresh_token: string }> {
+    const user = await this.usersService.findByEmail(loginDto.email);
     if (!user) {
-      throw new UnauthorizedException('Email ou mot de passe incorrect');
+      throw new UnauthorizedException('Invalid credentials');
     }
 
     const isPasswordValid = await bcrypt.compare(loginDto.password, user.password);
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Email ou mot de passe incorrect');
+      throw new UnauthorizedException('Invalid credentials');
     }
 
-    const payload = { sub: user.id, email: user.email, role: user.role };
+    const payload = { sub: user.id, email: user.email };
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: await this.jwtService.signAsync(payload),
+      refresh_token: await this.jwtService.signAsync(payload, { expiresIn: '7d' }),
     };
   }
 
@@ -62,5 +62,19 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+
+  async refreshToken(token: string) {
+    try {
+      const payload = await this.jwtService.verifyAsync(token);
+      const user = await this.usersService.findOne(payload.sub);
+      
+      const newPayload = { sub: user.id, email: user.email };
+      return {
+        access_token: await this.jwtService.signAsync(newPayload),
+      };
+    } catch {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
   }
 } 

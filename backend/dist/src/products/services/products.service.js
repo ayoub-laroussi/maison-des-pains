@@ -25,17 +25,24 @@ let ProductsService = class ProductsService {
         return this.productRepository.find();
     }
     async findOne(id) {
-        return this.productRepository.findOne({ where: { id } });
+        const product = await this.productRepository.findOne({ where: { id } });
+        if (!product) {
+            throw new common_1.NotFoundException(`Product with ID ${id} not found`);
+        }
+        return product;
     }
     async create(createProductDto) {
         const product = this.productRepository.create(createProductDto);
         return this.productRepository.save(product);
     }
     async update(id, updateProductDto) {
-        return this.productRepository.update(id, updateProductDto);
+        await this.findOne(id);
+        await this.productRepository.update(id, updateProductDto);
+        return this.findOne(id);
     }
     async remove(id) {
-        return this.productRepository.delete(id);
+        const product = await this.findOne(id);
+        await this.productRepository.remove(product);
     }
 };
 exports.ProductsService = ProductsService;

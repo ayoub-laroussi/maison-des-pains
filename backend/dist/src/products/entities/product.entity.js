@@ -16,8 +16,8 @@ let Product = class Product {
 };
 exports.Product = Product;
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
-    __metadata("design:type", String)
+    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    __metadata("design:type", Number)
 ], Product.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'varchar' }),
@@ -47,11 +47,15 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Product.prototype, "isAvailable", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp' }),
+    (0, typeorm_1.Column)({ type: 'simple-array', nullable: true }),
+    __metadata("design:type", Array)
+], Product.prototype, "categories", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], Product.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp' }),
+    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], Product.prototype, "updatedAt", void 0);
 exports.Product = Product = __decorate([
