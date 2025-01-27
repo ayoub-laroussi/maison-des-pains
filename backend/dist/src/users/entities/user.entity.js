@@ -9,19 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = exports.UserRole = void 0;
+exports.User = void 0;
 const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
-var UserRole;
-(function (UserRole) {
-    UserRole["CLIENT"] = "CLIENT";
-    UserRole["BOULANGER"] = "BOULANGER";
-    UserRole["ADMIN"] = "ADMIN";
-})(UserRole || (exports.UserRole = UserRole = {}));
+const user_role_enum_1 = require("../enums/user-role.enum");
 let User = class User {
     constructor() {
-        this.role = UserRole.CLIENT;
+        this.role = user_role_enum_1.UserRole.CLIENT;
     }
 };
 exports.User = User;
@@ -63,10 +58,10 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({
         type: 'enum',
-        enum: UserRole,
-        default: UserRole.CLIENT,
+        enum: user_role_enum_1.UserRole,
+        default: user_role_enum_1.UserRole.CLIENT,
     }),
-    (0, class_validator_1.IsEnum)(UserRole),
+    (0, class_validator_1.IsEnum)(user_role_enum_1.UserRole),
     __metadata("design:type", String)
 ], User.prototype, "role", void 0);
 __decorate([

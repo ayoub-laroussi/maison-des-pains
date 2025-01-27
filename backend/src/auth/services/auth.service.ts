@@ -54,7 +54,7 @@ export class AuthService {
   }
 
   async validateUser(userId: string): Promise<User | null> {
-    return this.userRepository.findOne({ where: { id: userId } });
+    return this.userRepository.findOne({ where: { id: Number(userId) } });
   }
 
   async generateToken(user: User) {

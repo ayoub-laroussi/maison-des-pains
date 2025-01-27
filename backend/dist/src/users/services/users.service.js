@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const user_entity_1 = require("../entities/user.entity");
+const user_role_enum_1 = require("../enums/user-role.enum");
 let UsersService = class UsersService {
     constructor(userRepository) {
         this.userRepository = userRepository;
@@ -35,7 +36,10 @@ let UsersService = class UsersService {
         return this.userRepository.findOne({ where: { email } });
     }
     async create(createUserDto) {
-        const user = this.userRepository.create(createUserDto);
+        const user = this.userRepository.create({
+            ...createUserDto,
+            role: createUserDto.role || user_role_enum_1.UserRole.CLIENT
+        });
         return await this.userRepository.save(user);
     }
     async update(id, updateUserDto) {

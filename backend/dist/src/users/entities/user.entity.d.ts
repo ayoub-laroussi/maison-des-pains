@@ -1,8 +1,4 @@
-export declare enum UserRole {
-    CLIENT = "CLIENT",
-    BOULANGER = "BOULANGER",
-    ADMIN = "ADMIN"
-}
+import { UserRole } from '../enums/user-role.enum';
 export declare class User {
     id: number;
     email: string;

@@ -56,7 +56,7 @@ let AuthService = class AuthService {
         };
     }
     async validateUser(userId) {
-        return this.userRepository.findOne({ where: { id: userId } });
+        return this.userRepository.findOne({ where: { id: Number(userId) } });
     }
     async generateToken(user) {
         const payload = { sub: user.id, email: user.email, role: user.role };

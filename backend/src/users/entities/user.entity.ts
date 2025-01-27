@@ -1,13 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsString, MinLength, IsEnum, IsOptional, IsPhoneNumber } from 'class-validator';
-import { Role } from '../../auth/enums/role.enum';
-
-export enum UserRole {
-  CLIENT = 'CLIENT',
-  BOULANGER = 'BOULANGER',
-  ADMIN = 'ADMIN',
-}
+import { UserRole } from '../enums/user-role.enum';
 
 @Entity('users')
 export class User {
